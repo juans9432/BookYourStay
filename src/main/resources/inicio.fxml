@@ -11,6 +11,10 @@
       prefHeight="600"
       style="-fx-background-color: linear-gradient(to bottom, #ffffff, #e3f2fd); -fx-padding: 30;">
 
+    <!-- Mensaje de bienvenida -->
+    <Label text="Bienvenido a BookYourStay"
+           style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1976d2;"/>
+
     <!-- Navegación -->
     <HBox spacing="15" alignment="CENTER">
         <padding>
@@ -32,18 +36,6 @@
                style="-fx-font-size: 18px; -fx-text-fill: #1e88e5; -fx-font-weight: bold;"/>
         <ListView fx:id="listaAlojamientos" prefHeight="200"/>
     </VBox>
-
-
-    <!-- Búsqueda -->
-    <HBox spacing="10" alignment="CENTER">
-        <TextField fx:id="campoBusqueda"
-                   promptText="Buscar ciudad, tipo o nombre"
-                   style="-fx-prompt-text-fill: #888; -fx-background-radius: 8;"
-                   minWidth="400" minHeight="35"/>
-        <Button text="Buscar"
-                style="-fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"
-                minWidth="100" minHeight="35"/>
-    </HBox>
 
     <!-- Ofertas especiales -->
     <VBox spacing="10" style="-fx-background-color: #ffffff; -fx-border-color: #ffe082; -fx-border-width: 2; -fx-background-radius: 10; -fx-padding: 15;">

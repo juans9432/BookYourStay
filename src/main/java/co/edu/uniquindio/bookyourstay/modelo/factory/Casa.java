@@ -12,7 +12,7 @@ import java.util.List;
 public class Casa extends Alojamiento implements Serializable {
 
 
-    public Casa(String id, String nombre, String ciudad, String descripcion, float precioNoche, int capacidadMaxima, Image imagenAlojamiento, List<String> servicios) {
+    public Casa(String id, String nombre, String ciudad, String descripcion, float precioNoche, int capacidadMaxima, String imagenAlojamiento, List<String> servicios) {
         super(id, nombre, ciudad, descripcion, precioNoche, capacidadMaxima, imagenAlojamiento, servicios);
     }
 

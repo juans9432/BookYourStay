@@ -41,10 +41,14 @@
     </TableView>
 
     <!-- Botón de acción -->
-    <HBox alignment="CENTER_RIGHT">
+    <HBox alignment="CENTER_RIGHT" spacing="15">
         <Button text="Ver Detalles"
                 style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"
                 minHeight="35" minWidth="140"/>
+        <Button text="Eliminar" onAction="#eliminarReserva"
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"
+                minHeight="35" minWidth="140"/>
     </HBox>
+
 
 </VBox>

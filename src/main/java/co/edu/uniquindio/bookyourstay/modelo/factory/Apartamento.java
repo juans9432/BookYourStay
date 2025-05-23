@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Apartamento extends Alojamiento implements Serializable {
 
-    public Apartamento(String id, String nombre, String ciudad, String descripcion, float precioNoche, int capacidadMaxima, Image imagenAlojamiento, List<String> servicios) {
+    public Apartamento(String id, String nombre, String ciudad, String descripcion, float precioNoche, int capacidadMaxima, String imagenAlojamiento, List<String> servicios) {
         super(id, nombre, ciudad, descripcion, precioNoche, capacidadMaxima, imagenAlojamiento, servicios);
     }
 

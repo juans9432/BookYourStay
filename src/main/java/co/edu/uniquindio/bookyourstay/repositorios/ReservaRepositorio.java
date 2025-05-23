@@ -55,7 +55,7 @@ public class ReservaRepositorio {
         try {
             Object datos = Persistencia.deserializarObjeto(Constantes.RUTA_RESERVAS);
             if (datos != null) {
-                return (List<Reserva>) reservas;
+                return (List<Reserva>) datos;
             }
         } catch (Exception e) {
             System.err.println("Error cargando reservas: " + e.getMessage());

@@ -42,7 +42,7 @@ public class AdministradorService {
      * @throws Exception
      */
     public void registrarAlojamiento(String tipo, String nombre, String ciudad,
-                                     String descripcion, float precioNoche, int capacidadMaxima, Image imagenAlojamiento, List<String> servicios) throws Exception {
+                                     String descripcion, float precioNoche, int capacidadMaxima, String imagenAlojamiento, List<String> servicios) throws Exception {
 
         String mensajesValidacion = "";
 
@@ -83,40 +83,40 @@ public class AdministradorService {
     }
 
     /**
-    public void actualizarAlojamiento(
-            Alojamiento alojamiento,
-            String tipo,
-            String nombre,
-            String ciudad,
-            String descripcion,
-            float precio,
-            int capacidad,
-            Image imagen,
-            List<String> servicios
-    ) throws Exception {
+     public void actualizarAlojamiento(
+     Alojamiento alojamiento,
+     String tipo,
+     String nombre,
+     String ciudad,
+     String descripcion,
+     float precio,
+     int capacidad,
+     Image imagen,
+     List<String> servicios
+     ) throws Exception {
 
-        // Validaciones básicas
-        if (nombre == null || nombre.isBlank()) {
-            throw new Exception("El nombre no puede estar vacío.");
-        }
+     // Validaciones básicas
+     if (nombre == null || nombre.isBlank()) {
+     throw new Exception("El nombre no puede estar vacío.");
+     }
 
-        if (precio <= 0) {
-            throw new Exception("El precio debe ser mayor que 0.");
-        }
+     if (precio <= 0) {
+     throw new Exception("El precio debe ser mayor que 0.");
+     }
 
-        // Actualizar directamente el alojamiento
-        alojamiento.setTipo(tipo);
-        alojamiento.setNombre(nombre);
-        alojamiento.setCiudad(ciudad);
-        alojamiento.setDescripcion(descripcion);
-        alojamiento.setPrecioNoche(precio);
-        alojamiento.setCapacidadMaxima(capacidad);
-        alojamiento.setImagenAlojamiento(imagen);
-        alojamiento.setServicios(servicios);
+     // Actualizar directamente el alojamiento
+     alojamiento.setTipo(tipo);
+     alojamiento.setNombre(nombre);
+     alojamiento.setCiudad(ciudad);
+     alojamiento.setDescripcion(descripcion);
+     alojamiento.setPrecioNoche(precio);
+     alojamiento.setCapacidadMaxima(capacidad);
+     alojamiento.setImagenAlojamiento(imagen);
+     alojamiento.setServicios(servicios);
 
-        // Persistir los cambios si es necesario
-        alojamientoRepositorio.actualizar(alojamiento);
-    }
+     // Persistir los cambios si es necesario
+     alojamientoRepositorio.actualizar(alojamiento);
+     }
      */
 
 

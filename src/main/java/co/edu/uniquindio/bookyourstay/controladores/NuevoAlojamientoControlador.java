@@ -15,7 +15,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -69,6 +71,7 @@ public class NuevoAlojamientoControlador implements Initializable {
     private TableView<Alojamiento> tablaAlojamientos;
 
     private IActualizacion iActualizacion;
+    private File archivoImagenSeleccionada;
 
 
     private final ControladorPrincipal controladorPrincipal;
@@ -88,7 +91,10 @@ public class NuevoAlojamientoControlador implements Initializable {
 
             float precio = Float.parseFloat(txtPrecio.getText());
 
-            Image imagen = imagenPreview.getImage();
+            String rutaImagen = null;
+            if (archivoImagenSeleccionada != null) {
+                rutaImagen = copiarImagen(archivoImagenSeleccionada);
+            }
 
             List<String> serviciosSeleccionados = new ArrayList<>();
             for (Node node : vboxServicios.getChildren()) {
@@ -104,7 +110,7 @@ public class NuevoAlojamientoControlador implements Initializable {
                     txtDescripcion.getText(),
                     precio,
                     capacidadSpinner.getValue(),
-                    imagen,
+                    rutaImagen,
                     serviciosSeleccionados
             );
 
@@ -132,6 +138,7 @@ public class NuevoAlojamientoControlador implements Initializable {
         File file = fileChooser.showOpenDialog(stage);
 
         if (file != null) {
+            archivoImagenSeleccionada = file; // Guarda el archivo
             Image imagen = new Image(file.toURI().toString());
             imagenPreview.setImage(imagen);
         }
@@ -170,6 +177,32 @@ public class NuevoAlojamientoControlador implements Initializable {
             }
         });
 
+    }
+    public String copiarImagen(File imagenOriginal) {
+        try {
+            File carpetaImagenes = new File("data/imagenes");
+            if (!carpetaImagenes.exists()) {
+                carpetaImagenes.mkdirs();
+            }
+
+            String nombreArchivo = imagenOriginal.getName();
+
+            // Evitar sobrescribir
+            File destino = new File(carpetaImagenes, nombreArchivo);
+            if (destino.exists()) {
+                String nombreSinExtension = nombreArchivo.substring(0, nombreArchivo.lastIndexOf('.'));
+                String extension = nombreArchivo.substring(nombreArchivo.lastIndexOf('.'));
+                nombreArchivo = nombreSinExtension + "_" + System.currentTimeMillis() + extension;
+                destino = new File(carpetaImagenes, nombreArchivo);
+            }
+
+            Files.copy(imagenOriginal.toPath(), destino.toPath());
+            return "data/imagenes/" + nombreArchivo;
+
+        } catch (IOException e) {
+            System.err.println("Error copiando imagen: " + e.getMessage());
+            return null;
+        }
     }
 }
 

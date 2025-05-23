@@ -5,6 +5,7 @@ import co.edu.uniquindio.bookyourstay.modelo.Usuario;
 import co.edu.uniquindio.bookyourstay.util.Constantes;
 import co.edu.uniquindio.bookyourstay.util.Persistencia;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +74,13 @@ public class UsuarioRepositorio {
 
     public List<Usuario> leerDatos() {
         try {
+            File carpeta = new File("data");
+            if (!carpeta.exists()) {
+                boolean creada = carpeta.mkdirs();
+                if (!creada) {
+                    System.err.println("No se pudo crear la carpeta de datos.");
+                }
+            }
             Object datos = Persistencia.deserializarObjeto(Constantes.RUTA_USUARIOS);
             if (datos != null) {
                 return (List<Usuario>) datos;

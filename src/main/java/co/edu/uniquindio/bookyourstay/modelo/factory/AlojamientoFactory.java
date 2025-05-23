@@ -7,7 +7,7 @@ import java.util.List;
 public class AlojamientoFactory {
 
     public static Alojamiento crearAlojamiento(String tipo, String id, String nombre, String ciudad,
-                                               String descripcion, float precioNoche, int capacidadMaxima, Image imagenAlojamiento, List<String> servicios) throws Exception {
+                                               String descripcion, float precioNoche, int capacidadMaxima, String imagenAlojamiento, List<String> servicios) throws Exception {
         switch (tipo.toLowerCase()){
             case "casa":
                 return new Casa(id, nombre, ciudad, descripcion, precioNoche, capacidadMaxima, imagenAlojamiento, servicios);
