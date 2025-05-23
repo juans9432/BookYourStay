@@ -123,26 +123,6 @@ public class GestionAlojamientosControldor implements Initializable, IActualizac
 
     }
 
-    /**
-    public void ActualizarAlojamiento(ActionEvent e) {
-        Alojamiento contactoSeleccionado = tablaAlojamientos.getSelectionModel().getSelectedItem();
-        try{
-            //Obtener el contacto seleccionado en la tabla
-            contactoSeleccionado.setNombre(txtNombre.getText());
-            contactoSeleccionado.setApellido(txtApellido.getText());
-            contactoSeleccionado.setNumeroDeTelefono(txtNumero.getText());
-            contactoSeleccionado.setCorreoElectronico(txtCorreo.getText());
-            contactoSeleccionado.setFechaDeNacimiento(txtFechaNacimiento.getValue());
-            gestionContactos.actualizarContacto(contactoSeleccionado);
-            actualizarContactos();
-            mostrarAlerta("contacto actualizado correctamente", Alert.AlertType.INFORMATION);
-            limpiarCampos();
-        } catch (Exception ex){
-            mostrarAlerta(ex.getMessage(), Alert.AlertType.WARNING);
-        }
-    }
-     */
-
 
     public void eliminarAlojamiento(ActionEvent e) {
         Alojamiento alojamientoSeleccionado = tablaAlojamientos.getSelectionModel().getSelectedItem();

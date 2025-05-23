@@ -39,20 +39,26 @@ public class ReservaControlador implements Initializable {
     }
 
 
-    public void buscarAlojamiento(ActionEvent e){
-        try{
-            String ciudad = ciudadTextField.getText();
+    public void buscarAlojamiento(ActionEvent e) {
+        try {
+            String ciudad = ciudadTextField.getText().trim();
 
-            List<Alojamiento> alojamientosEncontrados = controladorPrincipal.getAlojamientoRepositorio().obtenerPorCiudad(ciudad);
+            List<Alojamiento> alojamientosEncontrados;
 
-            if(alojamientosEncontrados.isEmpty()){
+            if (ciudad.isEmpty()) {
+                alojamientosEncontrados = controladorPrincipal.getAlojamientoRepositorio().listar();
+            } else {
+                alojamientosEncontrados = controladorPrincipal.getAlojamientoRepositorio().obtenerPorCiudad(ciudad);
+            }
+
+            if (alojamientosEncontrados == null || alojamientosEncontrados.isEmpty()) {
                 controladorPrincipal.mostrarAlerta("No se encontraron alojamientos en esta ciudad", Alert.AlertType.INFORMATION);
             } else {
                 ObservableList<Alojamiento> listaObservable = FXCollections.observableArrayList(alojamientosEncontrados);
                 listaAlojamientos.setItems(listaObservable);
             }
 
-        } catch (Exception ex){
+        } catch (Exception ex) {
             controladorPrincipal.mostrarAlerta("Error buscando alojamientos: " + ex.getMessage(), Alert.AlertType.ERROR);
         }
     }

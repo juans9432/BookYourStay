@@ -82,44 +82,6 @@ public class AdministradorService {
         alojamientoRepositorio.agregar(alojamiento);
     }
 
-    /**
-     public void actualizarAlojamiento(
-     Alojamiento alojamiento,
-     String tipo,
-     String nombre,
-     String ciudad,
-     String descripcion,
-     float precio,
-     int capacidad,
-     Image imagen,
-     List<String> servicios
-     ) throws Exception {
-
-     // Validaciones básicas
-     if (nombre == null || nombre.isBlank()) {
-     throw new Exception("El nombre no puede estar vacío.");
-     }
-
-     if (precio <= 0) {
-     throw new Exception("El precio debe ser mayor que 0.");
-     }
-
-     // Actualizar directamente el alojamiento
-     alojamiento.setTipo(tipo);
-     alojamiento.setNombre(nombre);
-     alojamiento.setCiudad(ciudad);
-     alojamiento.setDescripcion(descripcion);
-     alojamiento.setPrecioNoche(precio);
-     alojamiento.setCapacidadMaxima(capacidad);
-     alojamiento.setImagenAlojamiento(imagen);
-     alojamiento.setServicios(servicios);
-
-     // Persistir los cambios si es necesario
-     alojamientoRepositorio.actualizar(alojamiento);
-     }
-     */
-
-
 
     /**
      * metodo para eliminar un alojamiento
@@ -174,31 +136,41 @@ public class AdministradorService {
      * metodo para obtener los alojamientos mas populares en una ciudad
      * @return
      */
-    public Map<String, List<Alojamiento>> obtenerAlojamientosMasPopularesPorCiudad() {
+    public List<Alojamiento> obtenerAlojamientosMasPopulares() {
         List<Reserva> reservas = reservaRepositorio.listar();
-        Map<String, Map<Alojamiento, Long>> contador = new HashMap<>();
+        Map<Alojamiento, Long> contador = new HashMap<>();
 
         for (Reserva reserva : reservas) {
             Alojamiento alojamiento = reserva.getAlojamiento();
-            String ciudad = alojamiento.getCiudad();
-
-            contador.putIfAbsent(ciudad, new HashMap<>());
-            Map<Alojamiento, Long> mapaCiudad = contador.get(ciudad);
-            mapaCiudad.put(alojamiento, mapaCiudad.getOrDefault(alojamiento, 0L) + 1);
+            contador.put(alojamiento, contador.getOrDefault(alojamiento, 0L) + 1);
         }
 
-        Map<String, List<Alojamiento>> popularesPorCiudad = new HashMap<>();
+        return contador.entrySet().stream()
+                .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue())) // Ordenar por popularidad descendente
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+    }
 
-        for (String ciudad : contador.keySet()) {
-            List<Alojamiento> ordenados = contador.get(ciudad).entrySet().stream()
-                    .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
-                    .map(Map.Entry::getKey)
-                    .collect(Collectors.toList());
+    /**
+     * metodo que obtiene alojamientos rentables
+     * @return
+     */
+    public List<Alojamiento> obtenerAlojamientosMasRentables() {
+        List<Reserva> reservas = reservaRepositorio.listar();
+        Map<Alojamiento, Double> ingresos = new HashMap<>();
 
-            popularesPorCiudad.put(ciudad, ordenados);
+        for (Reserva reserva : reservas) {
+            Alojamiento alojamiento = reserva.getAlojamiento();
+            long dias = ChronoUnit.DAYS.between(reserva.getFechaInicio(), reserva.getFechaFin());
+            double ingreso = alojamiento.getPrecioNoche() * dias;
+
+            ingresos.put(alojamiento, ingresos.getOrDefault(alojamiento, 0.0) + ingreso);
         }
 
-        return popularesPorCiudad;
+        return ingresos.entrySet().stream()
+                .sorted((e1, e2) -> Double.compare(e2.getValue(), e1.getValue())) // más rentable primero
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 
     /**

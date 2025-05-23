@@ -39,14 +39,14 @@ public class AlojamientoRepositorio {
     }
 
 
-    public List<Alojamiento> obtenerPorCiudad(String ciudad) {
+    public List<Alojamiento> obtenerPorCiudad(String ciudad){
         List<Alojamiento> alojamientosCiudad = new ArrayList<>();
         for (Alojamiento a : alojamientos) {
             if (a.getCiudad().equals(ciudad)) {
                 alojamientosCiudad.add(a);
             }
         }
-        return null;
+        return alojamientosCiudad;
     }
 
     public List<Alojamiento> listar() {
